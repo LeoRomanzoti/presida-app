@@ -28,6 +28,8 @@ export default AddTeam = () => {
                         onChangeText={onChange}
                         value={value}
                         style={styles.input}
+                        mode="outlined"
+                        activeOutlineColor="#4169e1"
                     />
                 )}
                 name="teamName"
@@ -42,6 +44,8 @@ export default AddTeam = () => {
                         onChangeText={onChange}
                         value={value}
                         style={styles.input}
+                        mode="outlined"
+                        activeOutlineColor="#4169e1"
                     />
                 )}
                 name="teamCity"
@@ -56,6 +60,8 @@ export default AddTeam = () => {
                         onChangeText={onChange}
                         value={value}
                         style={styles.input}
+                        mode="outlined"
+                        activeOutlineColor="#4169e1"
                     />
                 )}
                 name="teamUniform"
@@ -70,6 +76,8 @@ export default AddTeam = () => {
                         onChangeText={onChange}
                         value={value}
                         style={styles.input}
+                        mode="outlined"
+                        activeOutlineColor="#4169e1"
                     />
                 )}
                 name="teamContact"
@@ -84,6 +92,8 @@ export default AddTeam = () => {
                         onChangeText={onChange}
                         value={value}
                         style={styles.input}
+                        mode="outlined"
+                        activeOutlineColor="#4169e1"
                         keyboardType="phone-pad"
                     />
                 )}
