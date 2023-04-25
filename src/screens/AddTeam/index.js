@@ -1,20 +1,53 @@
-import React, { useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Button, TextInput, useTheme } from "react-native-paper";
 import { makeStyles } from "./style";
 import Container from "../../components/Container";
 import { useForm, Controller } from "react-hook-form";
+import Parse from "parse/react-native.js"
 
-export default AddTeam = () => {
+
+export default AddTeam = ({ navigation }) => {
     const [newTeam, setNewTeam] = useState();
+    
     const {
         control,
-        handleSubmit,
-        formState: { errors },
+        handleSubmit,        
+        reset,
+        formState: { errors, isSubmitSuccessful, isSubmitting },
     } = useForm();
+    
+    useEffect(() => {
+        reset({
+            contact_name: "",
+            contact_phone: "",
+            name: "",
+            city: "",
+            color: "",
+            
+        })
+        
+    }, [isSubmitSuccessful])
 
     const { colors } = useTheme();
     const styles = makeStyles(colors);
-    const onSubmit = (data) => console.log(data);
+
+    async function addTeam(data) {
+        try {
+            const newTeam = new Parse.Object("Team")
+            newTeam.set('contact_name', data.contact_name )
+            newTeam.set('contact_phone', data.contact_phone )
+            newTeam.set('color', data.color )
+            newTeam.set('city', data.city )
+            newTeam.set('name', data.name )
+            await newTeam.save()
+            navigation.goBack()
+            
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <Container styles={styles.container}>
@@ -32,7 +65,7 @@ export default AddTeam = () => {
                         activeOutlineColor="#4169e1"
                     />
                 )}
-                name="teamName"
+                name="name"
             />
             <Controller
                 control={control}
@@ -48,7 +81,7 @@ export default AddTeam = () => {
                         activeOutlineColor="#4169e1"
                     />
                 )}
-                name="teamCity"
+                name="city"
             />
             <Controller
                 control={control}
@@ -64,7 +97,7 @@ export default AddTeam = () => {
                         activeOutlineColor="#4169e1"
                     />
                 )}
-                name="teamUniform"
+                name="color"
             />
             <Controller
                 control={control}
@@ -80,7 +113,7 @@ export default AddTeam = () => {
                         activeOutlineColor="#4169e1"
                     />
                 )}
-                name="teamContact"
+                name="contact_name"
             />
             <Controller
                 control={control}
@@ -97,12 +130,14 @@ export default AddTeam = () => {
                         keyboardType="phone-pad"
                     />
                 )}
-                name="teamPhone"
+                name="contact_phone"
             />
             <Button
-                onPress={handleSubmit(onSubmit)}
+                onPress={handleSubmit(addTeam)}
+                loading={isSubmitting}
                 buttonColor="#C0C0C0"
                 textColor="black"
+                disabled={isSubmitting}
                 style={styles.button}
             >
                 Cadastrar novo Time
