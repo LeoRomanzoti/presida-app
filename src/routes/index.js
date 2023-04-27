@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { IconButton } from "react-native-paper";
+import { IconButton, useTheme } from "react-native-paper";
 
 import Home from "../screens/Home";
 import Games from "../screens/Games";
@@ -13,15 +13,18 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function Tabs() {
+    const { colors } = useTheme();
+
     return (
         <Tab.Navigator
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: "#4169e1",
+                    backgroundColor: colors.primary,
                 },
                 headerTintColor: "#fff",
                 headerTitleStyle: {
                     fontWeight: "bold",
+                    fontSize: 22,
                 },
             }}
         >
@@ -31,7 +34,11 @@ function Tabs() {
                 options={{
                     tabBarLabel: "Ínicio",
                     tabBarIcon: ({ color }) => (
-                        <IconButton icon="home" iconColor="#8B0000" size={35} />
+                        <IconButton
+                            icon="home"
+                            iconColor={colors.primary}
+                            size={35}
+                        />
                     ),
                 }}
             />
@@ -43,7 +50,7 @@ function Tabs() {
                     tabBarIcon: ({ color }) => (
                         <IconButton
                             icon="account"
-                            iconColor="#000080"
+                            iconColor="black"
                             size={35}
                         />
                     ),
@@ -57,7 +64,7 @@ function Tabs() {
                     tabBarIcon: ({ color }) => (
                         <IconButton
                             icon="soccer-field"
-                            iconColor="green"
+                            iconColor={colors.primary}
                             size={35}
                         />
                     ),

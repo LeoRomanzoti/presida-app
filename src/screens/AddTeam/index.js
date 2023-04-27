@@ -1,21 +1,20 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, TextInput, useTheme } from "react-native-paper";
 import { makeStyles } from "./style";
 import Container from "../../components/Container";
 import { useForm, Controller } from "react-hook-form";
-import Parse from "parse/react-native.js"
-
+import Parse from "parse/react-native.js";
 
 export default AddTeam = ({ navigation }) => {
     const [newTeam, setNewTeam] = useState();
-    
+
     const {
         control,
-        handleSubmit,        
+        handleSubmit,
         reset,
         formState: { errors, isSubmitSuccessful, isSubmitting },
     } = useForm();
-    
+
     useEffect(() => {
         reset({
             contact_name: "",
@@ -23,31 +22,26 @@ export default AddTeam = ({ navigation }) => {
             name: "",
             city: "",
             color: "",
-            
-        })
-        
-    }, [isSubmitSuccessful])
+        });
+    }, [isSubmitSuccessful]);
 
     const { colors } = useTheme();
     const styles = makeStyles(colors);
 
     async function addTeam(data) {
         try {
-            const newTeam = new Parse.Object("Team")
-            newTeam.set('contact_name', data.contact_name )
-            newTeam.set('contact_phone', data.contact_phone )
-            newTeam.set('color', data.color )
-            newTeam.set('city', data.city )
-            newTeam.set('name', data.name )
-            await newTeam.save()
-            navigation.goBack()
-            
-        }
-        catch (error) {
-            console.log(error)
+            const newTeam = new Parse.Object("Team");
+            newTeam.set("contact_name", data.contact_name);
+            newTeam.set("contact_phone", data.contact_phone);
+            newTeam.set("color", data.color);
+            newTeam.set("city", data.city);
+            newTeam.set("name", data.name);
+            await newTeam.save();
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
         }
     }
-
 
     return (
         <Container styles={styles.container}>
@@ -62,7 +56,7 @@ export default AddTeam = ({ navigation }) => {
                         value={value}
                         style={styles.input}
                         mode="outlined"
-                        activeOutlineColor="#4169e1"
+                        activeOutlineColor={colors.primary}
                     />
                 )}
                 name="name"
@@ -78,7 +72,7 @@ export default AddTeam = ({ navigation }) => {
                         value={value}
                         style={styles.input}
                         mode="outlined"
-                        activeOutlineColor="#4169e1"
+                        activeOutlineColor={colors.primary}
                     />
                 )}
                 name="city"
@@ -94,7 +88,7 @@ export default AddTeam = ({ navigation }) => {
                         value={value}
                         style={styles.input}
                         mode="outlined"
-                        activeOutlineColor="#4169e1"
+                        activeOutlineColor={colors.primary}
                     />
                 )}
                 name="color"
@@ -110,7 +104,7 @@ export default AddTeam = ({ navigation }) => {
                         value={value}
                         style={styles.input}
                         mode="outlined"
-                        activeOutlineColor="#4169e1"
+                        activeOutlineColor={colors.primary}
                     />
                 )}
                 name="contact_name"
@@ -126,7 +120,7 @@ export default AddTeam = ({ navigation }) => {
                         value={value}
                         style={styles.input}
                         mode="outlined"
-                        activeOutlineColor="#4169e1"
+                        activeOutlineColor={colors.primary}
                         keyboardType="phone-pad"
                     />
                 )}
@@ -135,7 +129,7 @@ export default AddTeam = ({ navigation }) => {
             <Button
                 onPress={handleSubmit(addTeam)}
                 loading={isSubmitting}
-                buttonColor="#C0C0C0"
+                buttonColor={colors.secondary}
                 textColor="black"
                 disabled={isSubmitting}
                 style={styles.button}

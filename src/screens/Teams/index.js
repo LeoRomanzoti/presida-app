@@ -21,7 +21,6 @@ export default Teams = ({ navigation }) => {
                 }
                 cities[team.get("city")] = [team];
             });
-            console.log(cities);
 
             const finalResult = [];
             for (const city in cities) {
@@ -40,7 +39,7 @@ export default Teams = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Button
-                buttonColor="#C0C0C0"
+                buttonColor={colors.secondary}
                 textColor="black"
                 mode="contained"
                 style={styles.button}
@@ -67,6 +66,7 @@ export default Teams = ({ navigation }) => {
                                             title={item.get("name")}
                                             description={item.get("color")}
                                             style={styles.card}
+                                            onPress={() => styles.openCard}
                                             titleStyle={styles.title}
                                             id={Math.random()}
                                             key={item.get("objectId")}

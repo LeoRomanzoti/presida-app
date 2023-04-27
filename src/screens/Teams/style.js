@@ -17,10 +17,21 @@ export const makeStyles = (colors) =>
             padding: 10,
         },
         card: {
-            backgroundColor: "#C0C0C0",
+            backgroundColor: colors.quaternary,
+            borderWidth: 0.5,
+            borderRadius: 7,
+            marginHorizontal: 5,
         },
         insideCard: {
-            backgroundColor: "#D3D3D3",
+            backgroundColor: colors.secondary,
+            borderBottomWidth: 0.5,
+            borderRightWidth: 0.5,
+            borderLeftWidth: 0.5,
+            borderRadius: 7,
+            marginHorizontal: 5,
+        },
+        openCard: {
+            backgroundColor: colors.secondary,
         },
         title: {
             fontSize: 18,

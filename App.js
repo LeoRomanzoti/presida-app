@@ -22,9 +22,10 @@ const theme = {
     version: 3,
     colors: {
         ...DefaultTheme.colors,
-        primary: "#4169e1",
-        secondary: "#737373",
-        tertiary: "#eeeeee",
+        primary: "#0ca750",
+        secondary: "#A9A9A9",
+        tertiary: "#D3D3D3",
+        quaternary: "#DCDCDC",
     },
     margins: {
         short: 10,
