@@ -22,8 +22,8 @@ const theme = {
     version: 3,
     colors: {
         ...DefaultTheme.colors,
-        primary: "#0ca750",
-        secondary: "#A9A9A9",
+        primary: "#006838",
+        secondary: "#96cf24",
         tertiary: "#D3D3D3",
         quaternary: "#DCDCDC",
     },

@@ -129,8 +129,8 @@ export default AddTeam = ({ navigation }) => {
             <Button
                 onPress={handleSubmit(addTeam)}
                 loading={isSubmitting}
-                buttonColor={colors.secondary}
-                textColor="black"
+                buttonColor={colors.primary}
+                textColor="white"
                 disabled={isSubmitting}
                 style={styles.button}
             >

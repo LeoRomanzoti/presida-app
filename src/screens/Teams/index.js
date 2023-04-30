@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { List } from "react-native-paper";
 import { Button, useTheme } from "react-native-paper";
 import { makeStyles } from "./style";
 import Parse from "parse/react-native.js";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default Teams = ({ navigation }) => {
     const [teams, setTeams] = useState(undefined);
@@ -38,7 +39,7 @@ export default Teams = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Button
+            {/* <Button
                 buttonColor={colors.secondary}
                 textColor="black"
                 mode="contained"
@@ -46,7 +47,20 @@ export default Teams = ({ navigation }) => {
                 onPress={() => navigation.navigate("AddTeam")}
             >
                 Adicionar novo Adversário
-            </Button>
+            </Button> */}
+            <TouchableOpacity onPress={() => navigation.navigate("AddTeam")}>
+                <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    colors={[colors.primary, colors.secondary]}
+                    style={styles.button}
+                >
+                    <Text style={styles.textButton}>
+                        Adicionar novo Adversário
+                    </Text>
+                </LinearGradient>
+            </TouchableOpacity>
+
             {teams && (
                 <View style={{}}>
                     <FlatList

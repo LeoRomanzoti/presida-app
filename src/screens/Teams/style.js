@@ -8,7 +8,15 @@ export const makeStyles = (colors) =>
             padding: 0,
         },
         button: {
+            paddingHorizontal: 40,
+            paddingVertical: 10,
+            borderRadius: 10,
             margin: 20,
+        },
+        textButton: {
+            color: "white",
+            textAlign: "center",
+            fontWeight: "bold",
         },
         city: {
             textAlign: "center",
@@ -23,7 +31,7 @@ export const makeStyles = (colors) =>
             marginHorizontal: 5,
         },
         insideCard: {
-            backgroundColor: colors.secondary,
+            backgroundColor: colors.tertiary,
             borderBottomWidth: 0.5,
             borderRightWidth: 0.5,
             borderLeftWidth: 0.5,
