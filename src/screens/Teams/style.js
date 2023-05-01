@@ -29,14 +29,14 @@ export const makeStyles = (colors) =>
             borderWidth: 0.5,
             borderRadius: 7,
             marginHorizontal: 5,
+            marginBottom: 2,
         },
         insideCard: {
             backgroundColor: colors.tertiary,
-            borderBottomWidth: 0.5,
-            borderRightWidth: 0.5,
-            borderLeftWidth: 0.5,
+            borderWidth: 0.5,
             borderRadius: 7,
             marginHorizontal: 5,
+            marginBottom: 15,
         },
         openCard: {
             backgroundColor: colors.secondary,

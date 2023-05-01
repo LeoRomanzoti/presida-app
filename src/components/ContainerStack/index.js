@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default Container = ({ children }) => {
+export default ContainerStack = ({ children }) => {
     const insets = useSafeAreaInsets();
 
     return (

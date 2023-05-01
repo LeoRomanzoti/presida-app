@@ -5,9 +5,11 @@ import { Button, useTheme } from "react-native-paper";
 import { makeStyles } from "./style";
 import Parse from "parse/react-native.js";
 import { LinearGradient } from "expo-linear-gradient";
+import ContainerTab from "../../components/ContainerTab";
 
 export default Teams = ({ navigation }) => {
     const [teams, setTeams] = useState(undefined);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         async function loadTeams() {
@@ -30,9 +32,10 @@ export default Teams = ({ navigation }) => {
             }
 
             setTeams(finalResult);
+            setRefreshing(false);
         }
         loadTeams();
-    }, []);
+    }, [refreshing]);
 
     const { colors } = useTheme();
     const styles = makeStyles(colors);
@@ -62,9 +65,11 @@ export default Teams = ({ navigation }) => {
             </TouchableOpacity>
 
             {teams && (
-                <View style={{}}>
+                <ContainerTab>
                     <FlatList
                         data={teams}
+                        refreshing={refreshing}
+                        onRefresh={() => setRefreshing(true)}
                         keyExtractor={(item) => item.cityName}
                         renderItem={({ item, index }) => (
                             <List.AccordionGroup key={item.cityName}>
@@ -73,7 +78,7 @@ export default Teams = ({ navigation }) => {
                                 <FlatList
                                     data={item.teams}
                                     keyExtractor={(item) =>
-                                        item.get("objectId")
+                                        item.id
                                     }
                                     renderItem={({ item, index }) => (
                                         <List.Accordion
@@ -81,9 +86,17 @@ export default Teams = ({ navigation }) => {
                                             description={item.get("color")}
                                             style={styles.card}
                                             onPress={() => styles.openCard}
+                                            onLongPress={() => navigation.navigate("AddTeam", {
+                                                name: item.get('name'),
+                                                city: item.get('city'),
+                                                contact_name: item.get('contact_name'),
+                                                contact_phone: item.get('contact_phone'),
+                                                color: item.get('color'),
+                                                objectId: item.id
+                                            })}
                                             titleStyle={styles.title}
-                                            id={Math.random()}
-                                            key={item.get("objectId")}
+                                            id={item.id}
+                                            key={(item.id)}
                                         >
                                             <List.Item
                                                 title={item.get("contact_name")}
@@ -111,7 +124,7 @@ export default Teams = ({ navigation }) => {
                             </List.AccordionGroup>
                         )}
                     />
-                </View>
+                </ContainerTab>
             )}
         </View>
     );
