@@ -14,7 +14,21 @@ export const makeStyles = (colors) =>
             border: 10,
             borderBottomColor: "red",
         },
-        button: {
+        saveButton: {
             margin: 15,
+            borderRadius: 10,
+            marginTop: 22,
+        },
+        deleteButton: {
+            margin: 15,
+            borderRadius: 10,
+            bottom: 40,
+            position: "absolute",
+            width: "90%",
+        },
+        error: {
+            color: "red",
+            marginLeft: 25,
+            marginTop: 5,
         },
     });

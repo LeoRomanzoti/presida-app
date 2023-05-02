@@ -8,10 +8,8 @@ export const makeStyles = (colors) =>
             padding: 0,
         },
         button: {
-            paddingHorizontal: 40,
-            paddingVertical: 10,
-            borderRadius: 10,
             margin: 20,
+            borderRadius: 10,
         },
         textButton: {
             color: "white",
@@ -29,14 +27,14 @@ export const makeStyles = (colors) =>
             borderWidth: 0.5,
             borderRadius: 7,
             marginHorizontal: 5,
-            marginBottom: 2,
+            marginBottom: 3,
         },
         insideCard: {
             backgroundColor: colors.tertiary,
             borderWidth: 0.5,
             borderRadius: 7,
             marginHorizontal: 5,
-            marginBottom: 15,
+            marginBottom: 22,
         },
         openCard: {
             backgroundColor: colors.secondary,

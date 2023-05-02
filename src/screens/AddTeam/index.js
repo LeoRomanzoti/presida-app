@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextInput, useTheme } from "react-native-paper";
+import { Button, Text, TextInput, useTheme } from "react-native-paper";
 import { makeStyles } from "./style";
 import { useForm, Controller } from "react-hook-form";
 import Parse from "parse/react-native.js";
@@ -9,15 +9,12 @@ import { LinearGradient } from "expo-linear-gradient";
 export default AddTeam = ({ route, navigation }) => {
     const [newTeam, setNewTeam] = useState();
     const item = route.params;
-    console.log(item)
 
     const {
         control,
         handleSubmit,
-        reset,
         formState: { errors, isSubmitSuccessful, isSubmitting },
-    } = useForm({defaultValues: item});
-
+    } = useForm({ defaultValues: item });
 
     const { colors } = useTheme();
     const styles = makeStyles(colors);
@@ -38,8 +35,8 @@ export default AddTeam = ({ route, navigation }) => {
     }
 
     async function editTeam(data) {
-        const team = new Parse.Object("Team")
-        team.set("objectId", item.objectId)
+        const team = new Parse.Object("Team");
+        team.set("objectId", item.objectId);
         team.set("contact_name", data.contact_name.trim());
         team.set("contact_phone", data.contact_phone);
         team.set("color", data.color.trim());
@@ -50,8 +47,8 @@ export default AddTeam = ({ route, navigation }) => {
     }
 
     async function deleteTeam() {
-        const team = new Parse.Object("Team")
-        team.set("objectId", item.objectId)
+        const team = new Parse.Object("Team");
+        team.set("objectId", item.objectId);
         await team.destroy();
         navigation.goBack();
     }
@@ -74,6 +71,9 @@ export default AddTeam = ({ route, navigation }) => {
                 )}
                 name="name"
             />
+            {errors.name && (
+                <Text style={styles.error}>Nome do time é obrigatório.</Text>
+            )}
             <Controller
                 control={control}
                 rules={{ required: true }}
@@ -90,6 +90,9 @@ export default AddTeam = ({ route, navigation }) => {
                 )}
                 name="city"
             />
+            {errors.city && (
+                <Text style={styles.error}>Cidade do time é obrigatória.</Text>
+            )}
             <Controller
                 control={control}
                 rules={{ required: true }}
@@ -106,6 +109,9 @@ export default AddTeam = ({ route, navigation }) => {
                 )}
                 name="color"
             />
+            {errors.color && (
+                <Text style={styles.error}>Cor do Uniforme é obrigatória.</Text>
+            )}
             <Controller
                 control={control}
                 rules={{ required: true }}
@@ -122,9 +128,12 @@ export default AddTeam = ({ route, navigation }) => {
                 )}
                 name="contact_name"
             />
+            {errors.contact_name && (
+                <Text style={styles.error}>Nome do contato é obrigatório.</Text>
+            )}
             <Controller
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: true, maxLength: 11, minLength: 11 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                         label="Telefone do Contato"
@@ -139,37 +148,44 @@ export default AddTeam = ({ route, navigation }) => {
                 )}
                 name="contact_phone"
             />
-            <Button
-                onPress={handleSubmit(item?.objectId ? editTeam : addTeam)}
-                loading={isSubmitting}
-                buttonColor={colors.primary}
-                textColor="white"
-                disabled={isSubmitting}
-                style={styles.button}
-            >
-                Salvar
-            </Button>
-
-            { item?.objectId &&
-
-                <LinearGradient
+            {errors.contact_phone && (
+                <Text style={styles.error}>
+                    Telefone deverá conter 11 digitos, DDD + n.º.
+                </Text>
+            )}
+            <LinearGradient
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 colors={[colors.primary, colors.secondary]}
-                style={styles.button}
-                >
+                style={styles.saveButton}
+            >
                 <Button
-                onPress={handleSubmit(deleteTeam)}
-                loading={isSubmitting}
-                textColor="white"
-                disabled={isSubmitting}
+                    onPress={handleSubmit(item?.objectId ? editTeam : addTeam)}
+                    loading={isSubmitting}
+                    textColor="white"
+                    disabled={isSubmitting}
                 >
-                Excluir
+                    Salvar Time
                 </Button>
+            </LinearGradient>
+
+            {item?.objectId && (
+                <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    colors={["#7d141d", "#ff1e27"]}
+                    style={styles.deleteButton}
+                >
+                    <Button
+                        onPress={handleSubmit(deleteTeam)}
+                        loading={isSubmitting}
+                        textColor="white"
+                        disabled={isSubmitting}
+                    >
+                        Excluir Time
+                    </Button>
                 </LinearGradient>
-                
-                
-            }
+            )}
         </ContainerStack>
     );
 };

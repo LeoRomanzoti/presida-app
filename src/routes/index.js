@@ -26,6 +26,9 @@ function Tabs() {
                     fontWeight: "bold",
                     fontSize: 22,
                 },
+                tabBarActiveBackgroundColor: colors.quaternary,
+                tabBarInactiveTintColor: "black",
+                tabBarActiveTintColor: colors.primary,
             }}
         >
             <Tab.Screen

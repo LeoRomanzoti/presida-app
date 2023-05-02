@@ -42,27 +42,19 @@ export default Teams = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            {/* <Button
-                buttonColor={colors.secondary}
-                textColor="black"
-                mode="contained"
+            <LinearGradient
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                colors={[colors.primary, colors.secondary]}
                 style={styles.button}
-                onPress={() => navigation.navigate("AddTeam")}
             >
-                Adicionar novo Adversário
-            </Button> */}
-            <TouchableOpacity onPress={() => navigation.navigate("AddTeam")}>
-                <LinearGradient
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    colors={[colors.primary, colors.secondary]}
-                    style={styles.button}
+                <Button
+                    textColor="white"
+                    onPress={() => navigation.navigate("AddTeam")}
                 >
-                    <Text style={styles.textButton}>
-                        Adicionar novo Adversário
-                    </Text>
-                </LinearGradient>
-            </TouchableOpacity>
+                    Adicionar novo Adversário
+                </Button>
+            </LinearGradient>
 
             {teams && (
                 <ContainerTab>
@@ -77,26 +69,32 @@ export default Teams = ({ navigation }) => {
 
                                 <FlatList
                                     data={item.teams}
-                                    keyExtractor={(item) =>
-                                        item.id
-                                    }
+                                    keyExtractor={(item) => item.id}
                                     renderItem={({ item, index }) => (
                                         <List.Accordion
                                             title={item.get("name")}
                                             description={item.get("color")}
                                             style={styles.card}
                                             onPress={() => styles.openCard}
-                                            onLongPress={() => navigation.navigate("AddTeam", {
-                                                name: item.get('name'),
-                                                city: item.get('city'),
-                                                contact_name: item.get('contact_name'),
-                                                contact_phone: item.get('contact_phone'),
-                                                color: item.get('color'),
-                                                objectId: item.id
-                                            })}
+                                            onLongPress={() =>
+                                                navigation.navigate("AddTeam", {
+                                                    name: item.get("name"),
+                                                    city: item.get("city"),
+                                                    contact_name:
+                                                        item.get(
+                                                            "contact_name"
+                                                        ),
+                                                    contact_phone:
+                                                        item.get(
+                                                            "contact_phone"
+                                                        ),
+                                                    color: item.get("color"),
+                                                    objectId: item.id,
+                                                })
+                                            }
                                             titleStyle={styles.title}
                                             id={item.id}
-                                            key={(item.id)}
+                                            key={item.id}
                                         >
                                             <List.Item
                                                 title={item.get("contact_name")}
