@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import Parse from "parse/react-native.js";
 import ContainerStack from "../../components/ContainerStack";
 import { LinearGradient } from "expo-linear-gradient";
+import ButtonGradient from "../../components/ButtonGradient";
 
 export default AddTeam = ({ route, navigation }) => {
     const [newTeam, setNewTeam] = useState();
@@ -153,38 +154,23 @@ export default AddTeam = ({ route, navigation }) => {
                     Telefone deverá conter 11 digitos, DDD + n.º.
                 </Text>
             )}
-            <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                colors={[colors.primary, colors.secondary]}
-                style={styles.saveButton}
-            >
-                <Button
-                    onPress={handleSubmit(item?.objectId ? editTeam : addTeam)}
-                    loading={isSubmitting}
-                    textColor="white"
-                    disabled={isSubmitting}
-                >
-                    Salvar Time
-                </Button>
-            </LinearGradient>
+            <ButtonGradient 
+                text="Salvar Time"
+                color={[colors.primary, colors.secondary]}
+                onPress={handleSubmit(item?.objectId ? editTeam : addTeam)}
+                loading={isSubmitting}
+                disable={isSubmitting}
+            />
 
             {item?.objectId && (
-                <LinearGradient
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 1 }}
-                    colors={["#7d141d", "#ff1e27"]}
+                <ButtonGradient 
+                    text="Excluir Time"
+                    color={["#7d141d", "#ff1e27"]}
+                    onPress={handleSubmit(deleteTeam)}
+                    loading={isSubmitting}
+                    disable={isSubmitting}
                     style={styles.deleteButton}
-                >
-                    <Button
-                        onPress={handleSubmit(deleteTeam)}
-                        loading={isSubmitting}
-                        textColor="white"
-                        disabled={isSubmitting}
-                    >
-                        Excluir Time
-                    </Button>
-                </LinearGradient>
+                />
             )}
         </ContainerStack>
     );

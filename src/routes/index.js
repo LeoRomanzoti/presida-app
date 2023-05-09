@@ -8,6 +8,7 @@ import Games from "../screens/Games";
 import Teams from "../screens/Teams";
 import Ranking from "../screens/Ranking";
 import AddTeam from "../screens/AddTeam";
+import AddGame from "../screens/AddGame";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -98,6 +99,11 @@ export default Routes = () => {
             <Stack.Screen
                 name="AddTeam"
                 component={AddTeam}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="AddGame"
+                component={AddGame}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>

@@ -6,6 +6,7 @@ import { makeStyles } from "./style";
 import Parse from "parse/react-native.js";
 import { LinearGradient } from "expo-linear-gradient";
 import ContainerTab from "../../components/ContainerTab";
+import ButtonGradient from "../../components/ButtonGradient";
 
 export default Teams = ({ navigation }) => {
     const [teams, setTeams] = useState(undefined);
@@ -42,19 +43,11 @@ export default Teams = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                colors={[colors.primary, colors.secondary]}
-                style={styles.button}
-            >
-                <Button
-                    textColor="white"
-                    onPress={() => navigation.navigate("AddTeam")}
-                >
-                    Adicionar novo Adversário
-                </Button>
-            </LinearGradient>
+            <ButtonGradient 
+                text="Adicionar novo Adversário"
+                color={[colors.primary, colors.secondary]}
+                onPress={() => navigation.navigate("AddTeam")}
+            />
 
             {teams && (
                 <ContainerTab>
