@@ -11,6 +11,7 @@ import ButtonGradient from "../../components/ButtonGradient";
 export default Teams = ({ navigation }) => {
     const [teams, setTeams] = useState(undefined);
     const [refreshing, setRefreshing] = useState(false);
+    
 
     useEffect(() => {
         async function loadTeams() {

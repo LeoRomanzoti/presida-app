@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
 import {  Dialog, Portal, Text, TextInput, useTheme } from "react-native-paper";
 import { makeStyles } from "./style";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 import Parse from "parse/react-native.js";
 import ContainerStack from "../../components/ContainerStack";
 import ButtonGradient from "../../components/ButtonGradient";
-import { Pressable, Alert, ScrollView  } from "react-native";
+import { Pressable, Alert, ScrollView, FlatList, TouchableOpacity  } from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default AddGame = ({ route, navigation }) => {
     const [newTeam, setNewTeam] = useState();
+    const [teams, setTeams] = useState(undefined);
+    const [show, setShow] = useState(false);
+    
     const item = route.params;
+
+    useEffect(() => {
+        async function loadTeams() {
+            const query = new Parse.Query("Team");
+            const result = await query.findAll(); 
+
+            setTeams(result)
+        }
+        loadTeams()
+    }, []) 
 
     const {
         control,
         handleSubmit,
+        setValue,
         formState: { errors, isSubmitSuccessful, isSubmitting },
     } = useForm({ defaultValues: item });
 
@@ -32,6 +47,12 @@ export default AddGame = ({ route, navigation }) => {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    function selectTeam(value) {
+        setVisible(false)
+        setValue("opponent", value)
+
     }
 
     // async function editTeam(data) {
@@ -60,12 +81,17 @@ export default AddGame = ({ route, navigation }) => {
         <ContainerStack>
             <Portal>
         <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Ola</Dialog.Title>
+            <Dialog.Title>Selecione o Adversário</Dialog.Title>
           <Dialog.ScrollArea>
-            <ScrollView contentContainerStyle={{paddingHorizontal: 24}}>
-
-              <Text>This is a scrollable area</Text>
-            </ScrollView>
+              <FlatList 
+                data={teams}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => (
+                    <TouchableOpacity onPress={() => selectTeam(item.get("name"))}>
+                        <Text style={styles.teamsList}>{item.get("name")}</Text>
+                    </TouchableOpacity>
+            )}
+              />
           </Dialog.ScrollArea>
         </Dialog>
       </Portal>
@@ -96,23 +122,36 @@ export default AddGame = ({ route, navigation }) => {
                 control={control}
                 rules={{ required: true }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        label="Data do jogo"
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        style={styles.input}
-                        mode="outlined"
-                        activeOutlineColor={colors.primary}
-                        editable={false}
-
-                    />
+                    <Pressable onPress={() => setShow(true)}>
+                         <TextInput
+                            label="Data do jogo"
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            style={styles.input}
+                            mode="outlined"
+                            activeOutlineColor={colors.primary}
+                            editable={false}
+                            onPressIn={() => setShow(true)}
+                        
+                        />
+                    </Pressable>
                 )}
                 name="date"
             />
             {errors.city && (
                 <Text style={styles.error}>Data do jogo é obrigatória.</Text>
             )}
+            {
+                show && <DateTimePicker
+                testID="dateTimePicker"
+                value={new Date()}
+                mode={"date"}
+                is24Hour={true}
+                display="spinner"
+                onChange={() => setShow(false)}
+            />
+            }
             <Controller
                 control={control}
                 rules={{ required: false }}
@@ -148,7 +187,7 @@ export default AddGame = ({ route, navigation }) => {
                     />
                 )}
                 name="opponent_goals"
-            />
+            />            
             <ButtonGradient 
                 text="Salvar Jogo"
                 color={[colors.primary, colors.secondary]}
@@ -167,24 +206,7 @@ export default AddGame = ({ route, navigation }) => {
                     style={styles.deleteButton}
                 />
             )}
+            
         </ContainerStack>
     );
 };
-
-const MyComponent = () => {
-    const [visible, setVisible] = React.useState(false);
-  
-    const hideDialog = () => setVisible(false);
-  
-    return (
-      <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
-          <Dialog.ScrollArea>
-            <ScrollView contentContainerStyle={{paddingHorizontal: 24}}>
-              <Text>This is a scrollable area</Text>
-            </ScrollView>
-          </Dialog.ScrollArea>
-        </Dialog>
-      </Portal>
-    );
-  };

@@ -26,4 +26,9 @@ export const makeStyles = (colors) =>
             marginLeft: 25,
             marginTop: 5,
         },
+        teamsList: {
+            fontWeight: "600",
+            fontSize: 20,
+            padding: 9,
+        }
     });
